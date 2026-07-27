@@ -1,4 +1,11 @@
+#ifndef CHIP8_H
+#define CHIP8_H
+
 #include <stdint.h> // for uint
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef struct {
     uint8_t     ram[4096];          // 4KB memory
@@ -17,3 +24,9 @@ typedef struct {
 void chip8_init(Chip8 *c);
 void chip8_load_rom(Chip8 *c, const char *romPath);
 void chip8_cycle(Chip8 *c);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif

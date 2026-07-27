@@ -55,9 +55,9 @@ It's become the "hello world" of emulator development because it's simple to bui
 - Remaining opcodes
 - Keyboard input
 - Timers (delay + sound)
-- Windows build (MingW)
+- More menu bar options
+- Windows build
 - Build scripts
-- GUI / Menu Bar (Qt)
 
 ---
 
@@ -65,9 +65,11 @@ It's become the "hello world" of emulator development because it's simple to bui
 
 **Linux / WSL (Ubuntu/Debian):**
 
+**Note: WSLg required for WSL (Built in on Windows 11)**
+
 ```sh
 sudo apt update
-sudo apt install build-essential cmake libsdl2-dev
+sudo apt install build-essential cmake libsdl2-dev qt6-base-dev
 ```
 
 ---

@@ -1,10 +1,16 @@
-cmake_minimum_required(VERSION 3.10)
-
+cmake_minimum_required(VERSION 3.16)
 project(CHIP-8)
 
-find_package(SDL2 REQUIRED)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_AUTOMOC ON)
 
-add_executable(CHIP-8 src/main.c src/chip8.c)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
-target_include_directories(CHIP-8 PRIVATE ${SDL2_INCLUDE_DIRS})
-target_link_libraries(CHIP-8 ${SDL2_LIBRARIES})
+add_executable(CHIP-8
+    src/main.cpp
+    src/chip8screen.cpp
+    src/mainwindow.cpp
+    src/chip8.c
+)
+
+target_link_libraries(CHIP-8 PRIVATE Qt6::Widgets)
