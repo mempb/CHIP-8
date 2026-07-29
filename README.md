@@ -84,6 +84,7 @@ pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-cmake mingw-w64-x86_64-make ming
 **Linux / WSL (Ubuntu/Debian):**
 
 ```sh
+chmod +x build-linux.sh
 ./build-linux.sh          # Linux build script
 ./CHIP-8                  # Run the binary
 ```
