@@ -1,14 +1,10 @@
 # CHIP-8 Emulator
 
-A CHIP-8 emulator written in C with SDL2. Built as a learning project to gain low-level C experience and emulation.
-
----
-
-## What is CHIP-8?
+A CHIP-8 emulator written in C, wrapped in Qt. Built as a learning project to gain low-level C experience, emulation, and to (hopeflly) build up to a larger emulator like a GameBoy.
 
 CHIP-8 is an interpreted programming language from the 1970s, originally designed to make game development easier on early microcomputers. It's not a real hardware system, but a virtual machine that runs on top of whatever hardware you have.
 
-It's become the "hello world" of emulator development because it's simple to build but teaches you everything you need to know before tackling something like the NES or Game Boy.
+It's become the "hello world" of emulator development because it's simple to build but teaches you everything you need to know before tackling other emulators.
 
 ---
 
@@ -40,7 +36,7 @@ It's become the "hello world" of emulator development because it's simple to bui
 | `5XY0` | skips if reg VX == VY |
 | `6XNN` | Set reg VX = NN |
 | `7XNN` | Adds NN to register VX |
-| `8XYN` **(in progress)** | ALU - Arithmetic and Bitwise operations |
+| `8XYN` | ALU - Arithmetic and Bitwise operations |
 | `9XY0` | Skips if VX != VY |
 | `ANNN` | Sets index register I = NNN |
 | `DXYN` | Draws sprite at (VX, VY), N bytes tall |
@@ -52,12 +48,11 @@ It's become the "hello world" of emulator development because it's simple to bui
 ![CHIP-8 running IBM logo](IBM_LOGO.png)
 
 **In progress / TODO**
+
 - Remaining opcodes
 - Keyboard input
 - Timers (delay + sound)
 - More menu bar options
-- Windows build
-- Build scripts
 
 ---
 
@@ -65,26 +60,43 @@ It's become the "hello world" of emulator development because it's simple to bui
 
 **Linux / WSL (Ubuntu/Debian):**
 
-**Note: WSLg required for WSL (Built in on Windows 11)**
-
 ```sh
 sudo apt update
-sudo apt install build-essential cmake libsdl2-dev qt6-base-dev
+sudo apt install build-essential cmake qt6-base-dev
 ```
+
+**Windows 10/11:**
+
+- Install [MSYS2](https://www.msys2.org/)
+- Install location: my CMakeLists.txt and README assumes C:\Dev\msys64
+- Open MSYS2 MINGW64
+
+```sh
+pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-cmake mingw-w64-x86_64-make mingw-w64-x86_64-qt6-base
+```
+
+- Add ``` C:\Dev\msys64\mingw64\bin ``` to Windows System PATH
 
 ---
 
-## Building
+## Build & Run
+
+**Linux / WSL (Ubuntu/Debian):**
 
 ```sh
-mkdir build
-cd build
-cmake ..
-cmake --build .
-./CHIP-8
+./build-linux.sh          # Linux build script
+./CHIP-8                  # Run the binary
 ```
 
-The binary looks for ROMs at `../ROMs` relative to where it runs, so run it from inside `build/`.
+**Windows 10/11:**
+
+- Open MSYS2 MINGW64
+
+```sh
+cd /c/Dev/Code/CHIP8-Emu
+./build-windows.sh        # Windows build script
+./build/CHIP-8.exe        # Run the binary
+```
 
 ---
 
@@ -92,3 +104,4 @@ The binary looks for ROMs at `../ROMs` relative to where it runs, so run it from
 
 - https://tobiasvl.github.io/blog/write-a-chip-8-emulator/
 - http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#0.1
+- https://doc.qt.io/qt-6/
