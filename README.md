@@ -45,7 +45,7 @@ It's become the "hello world" of emulator development because it's simple to bui
 
 **IBM Logo ROM**
 
-![CHIP-8 running IBM logo](IBM_LOGO.png)
+![CHIP-8 running IBM logo](docs/IBM_Logo.png)
 
 **In progress / TODO**
 
