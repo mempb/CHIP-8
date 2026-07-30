@@ -68,14 +68,13 @@ sudo apt install build-essential cmake qt6-base-dev
 **Windows 10/11:**
 
 - Install [MSYS2](https://www.msys2.org/)
-- Install location: my CMakeLists.txt and README assumes C:\Dev\msys64
 - Open MSYS2 MINGW64
 
 ```sh
 pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-cmake mingw-w64-x86_64-make mingw-w64-x86_64-qt6-base
 ```
 
-- Add ``` C:\Dev\msys64\mingw64\bin ``` to Windows System PATH
+- Add ``` C:\msys64\mingw64\bin ``` to Windows System PATH
 
 ---
 
@@ -91,10 +90,10 @@ chmod +x build-linux.sh
 
 **Windows 10/11:**
 
-- Open MSYS2 MINGW64
+- Run the following in MSYS2 MINGW64
 
 ```sh
-cd /c/Dev/Code/CHIP8-Emu
+cd /c/.../CHIP8-Emu
 ./build-windows.sh        # Windows build script
 ./build/CHIP-8.exe        # Run the binary
 ```

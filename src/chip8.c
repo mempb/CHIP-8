@@ -86,161 +86,110 @@ void chip8_cycle(Chip8 *c) {
             {
                 case 0xE0: 
                     // 00E0 - clear display
-                    memset(c->display, 0, sizeof(c->display));
+                    memset(c->display, 0, sizeof(c->display)); 
                     break;
-                
                 case 0xEE:
                     // 00EE - return from subroutine 
                     c->sp--;   //Decrement sp 
                     c->pc = c->stack[c->sp]; // Pop PC at stack location sp
-                break;
+                    break;
             }
             break;
-
         case 0x1:
             // 1NNN - jump
             c->pc = NNN; 
             break;
-
         case 0x2:
             // 2NNN - call subroutine
             c->stack[c->sp] = c->pc; // Store value of PC to address of stack at SP
             c->sp++; // Increment sp
             c->pc = NNN; // Jump to NNN (subroutine)
             break;
-
         case 0x3:
             // 3XNN - skips if VX == NN
-            if (c->V[X] == NN)
-            {
-                c->pc += 2;
-            }
-            break;
-
+            if (c->V[X] == NN) c->pc += 2; 
+            break;  
         case 0x4:
             // 4XNN - skips if VX != NN
-            if (c->V[X] != NN)
-            {
-                c->pc += 2;
-            }
+            if (c->V[X] != NN) c->pc += 2; 
             break;
-
         case 0x5:
             // 5XY0 - skips if VX == VY
-            if (c->V[X] == c->V[Y])
-            {
-                c->pc += 2;
-            }
+            if (c->V[X] == c->V[Y]) c->pc += 2; 
             break;
-
         case 0x6:
             // 6XNN - set VX to NN
-            c->V[X] = NN;
+            c->V[X] = NN; 
             break;
-
         case 0x7:
             // 7XNN — add NN to register VX
-            c->V[X] += NN;
+            c->V[X] += NN; 
             break;
-
         case 0x8:
+        {
         // 8XYN - ALU: performs bitwise operations and arithmetic
             switch (N)
             {
                 case 0x0:
                     // VX = VY
-                    c->V[X] = c->V[Y];
+                    c->V[X] = c->V[Y]; 
                     break;
-
                 case 0x1:
                     // VX OR VY
-                    c->V[X] |= c->V[Y];
+                    c->V[X] |= c->V[Y]; 
                     break;
-
                 case 0x2:
                     // VX AND VY
-                    c->V[X] &= c->V[Y];
+                    c->V[X] &= c->V[Y]; 
                     break;
-
                 case 0x3:
                     // VX XOR VY
-                    c->V[X] ^= c->V[Y];
+                    c->V[X] ^= c->V[Y]; 
                     break;
-
                 case 0x4:
                     // VX + VY, VF = 1 if overflow
                     uint16_t sum = c->V[X] + c->V[Y];   // 16 bit, holds up to 510
                     c->V[X] = sum & 0xFF;               // Put lower byte in V[X]
                     c->V[0xF] = (sum > 255) ? 1 : 0;    // carry flag, set 1 if sum > 255, otherwise 0
                     break;
-
                 case 0x5:
-                {
                     // VX - VY, VF = 1 if VX >= VY
                     uint8_t noBorrow;
-                    if (c->V[X] >= c->V[Y])
-                    {
-                        noBorrow = 1;
-                    }
-                    else
-                    {
-                        noBorrow = 0;
-                    }
+                    if (c->V[X] >= c->V[Y]) noBorrow = 1;
+                    else noBorrow = 0;
                     c->V[X] -= c->V[Y];
                     c->V[0xF] = noBorrow;
                     break;
-                }
-
                 case 0x6: 
-                {
                     // VF = (VX AND 1), then VX right shift 1
                     uint8_t shiftedBit = c->V[X] & 1;
                     c->V[X] >>= 1;
                     c->V[0xF] = shiftedBit;
                     break;
-                }
-
                 case 0x7:
-                {
                     // VX = VY - VX, VF = 1 if VY >= VX
-                    uint8_t noBorrow;
-                    if (c->V[Y] >= c->V[X])
-                    {
-                        noBorrow = 1;
-                    }
-                    else
-                    {
-                        noBorrow = 0;
-                    }
+                    if (c->V[Y] >= c->V[X]) noBorrow = 1;
+                    else noBorrow = 0;
                     c->V[X] = c->V[Y] - c->V[X];
                     c->V[0xF] = noBorrow;
                     break;
-                }
-
                 case 0xE:
-                {
                     // VF = ((VX right shift 7) AND 1), then VX left shift 1
-                    uint8_t shiftedBit = (c->V[X] >> 7) & 1;
+                    shiftedBit = (c->V[X] >> 7) & 1;
                     c->V[X] <<= 1;
                     c->V[0xF] = shiftedBit;
                     break;
                 }
             }
             break;
-
         case 0x9:
             // 9XY0 - skips if VX != VY
-            if (c->V[X] != c->V[Y])
-            {
-                c->pc += 2;
-            }
+            if (c->V[X] != c->V[Y]) c->pc += 2; 
             break;
-
         case 0xA:
             // ANNN — set index register I to NNN
-            c->I = NNN;
+            c->I = NNN; 
             break;
-
         case 0xD:
             // DXYN - draw sprite
             // draws an N-pixel-tall sprite at screen position (VX, VY), 
@@ -266,9 +215,46 @@ void chip8_cycle(Chip8 *c) {
 
             c->draw_flag = 1;
             break;
+        case 0xF:
+            // FXNN - memory, timers, system fonts, and keypad input
+            switch(NN)
+            {
+                case 0x07:
+                    // VX = delay_timer
+                    c->V[X] = c->delay_timer;
+                    break;
+                case 0x15:
+                    // delay_timer = VX
+                    c->delay_timer = c->V[X];
+                    break;
+                case 0x18:
+                    // sound_timer = VX
+                    c->sound_timer = c->V[X];
+                    break;
+                case 0x1E:
+                    // I = I + VX
+                    c->I += c->V[X];
+                    break;
+                case 0x29:
+                    // I = font address for the hex digit in VX
+                    c->I = 0x050 + (c->V[X] * 5);
+                    break;
+                // case 0x33:
+                //     // V[X] to BCD
+                //     break;
+                // case 0x55:
 
+                //     break;
+                // case 0x65:
+
+                //     break;
+                // case 0x0A:
+
+                //     break;
+            }
+            break;
         default:
-            printf("Unknown opcode: 0x%04x\n", opcode);
+            printf("Unknown opcode: 0x%04x\n", opcode); 
             break;
     }
 }
