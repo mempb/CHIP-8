@@ -8,6 +8,13 @@ It's become the "hello world" of emulator development because it's simple to bui
 
 ---
 
+## Repo Structure
+
+- `chip8/` — the emulator (C core + Qt frontend)
+- `keypad/` — optional Pi Pico firmware for a physical CHIP-8 keypad (USB HID)
+- `docs/` — reference material
+- `roms/` — CHIP-8 ROMS
+
 ## Specs
 
 - **Memory:** 4 KB RAM
@@ -43,6 +50,16 @@ It's become the "hello world" of emulator development because it's simple to bui
 
 ---
 
+## Hardware Keypad
+
+A physical 4x4 keypad built on perfboard, driven by a Raspberry Pi Pico
+running custom firmware (in `keypad/`). It enumerates as a standard USB
+HID keyboard, so no special driver is needed, the emulator reads it the
+same way it reads a regular keyboard.
+
+**Status:** 8 of 16 buttons wired and mapped (1,2,3,C / 4,5,6,D). Full
+build/flash instructions coming once the hardware is complete.
+
 **IBM Logo ROM**
 
 ![CHIP-8 running IBM logo](docs/IBM_Logo.png)
@@ -51,6 +68,7 @@ It's become the "hello world" of emulator development because it's simple to bui
 
 - Remaining opcodes
 - Keyboard input
+- Finish keypad
 - Timers (delay + sound)
 - More menu bar options
 
@@ -105,3 +123,5 @@ cd /c/.../CHIP8-Emu
 - https://tobiasvl.github.io/blog/write-a-chip-8-emulator/
 - http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#0.1
 - https://doc.qt.io/qt-6/
+- https://www.raspberrypi.com/documentation/pico-sdk/
+- https://github.com/hathach/tinyusb
