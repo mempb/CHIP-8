@@ -48,8 +48,6 @@ It's become the "hello world" of emulator development because it's simple to bui
 | `ANNN` | Sets index register I = NNN |
 | `DXYN` | Draws sprite at (VX, VY), N bytes tall |
 
----
-
 ## Hardware Keypad
 
 A physical 4x4 keypad built on perfboard, driven by a Raspberry Pi Pico
@@ -60,6 +58,8 @@ same way it reads a regular keyboard.
 **Status:** 8 of 16 buttons wired and mapped (1,2,3,C / 4,5,6,D). Full
 build/flash instructions coming once the hardware is complete.
 
+---
+
 **IBM Logo ROM**
 
 ![CHIP-8 running IBM logo](docs/IBM_Logo.png)
@@ -68,7 +68,7 @@ build/flash instructions coming once the hardware is complete.
 
 - Remaining opcodes
 - Keyboard input
-- Finish keypad
+- Finish keypad: FW, perfboard, pictures, wiring diagram, README flash/build instructions
 - Timers (delay + sound)
 - More menu bar options
 
